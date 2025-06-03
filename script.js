@@ -1,5 +1,6 @@
 let latitudeContainer = document.getElementById('latitude')
 let longitudeContainer = document.getElementById('longitude')
+let velociteContainer = document.getElementById('velocite')
 const map = L.map('map').setView([0, 0], 3);
 
 L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}', {
@@ -13,14 +14,15 @@ const satelliteIcon = L.icon({
 });
 async function findPosition() {
     try {
-        const response = await fetch('http://api.open-notify.org/iss-now.json');
+        const response = await fetch('https://api.wheretheiss.at/v1/satellites/25544');
         if (!response.ok) throw new Error('Erreur réseau');
 
         const data = await response.json();
-        const { latitude, longitude } = data.iss_position;
+        const { latitude, longitude, velocity } = data;
 
         latitudeContainer.innerText = latitude;
         longitudeContainer.innerText = longitude;
+        velociteContainer.innerText = Math.round(velocity, 0)+' km/h'
 
         return { latitude, longitude };
     } catch (error) {
