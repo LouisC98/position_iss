@@ -8,7 +8,7 @@ L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/
 }).addTo(map);
 
 const satelliteIcon = L.icon({
-    iconUrl: '/Ressources/iss.png',
+    iconUrl: './Ressources/iss.png',
     iconSize: [100, 100],
     iconAnchor: [50, 50]
 });
