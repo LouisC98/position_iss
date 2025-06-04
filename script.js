@@ -1,6 +1,7 @@
-let latitudeContainer = document.getElementById('latitude')
-let longitudeContainer = document.getElementById('longitude')
-let velociteContainer = document.getElementById('velocite')
+const latitudeContainer = document.getElementById('latitude')
+const longitudeContainer = document.getElementById('longitude')
+const velociteContainer = document.getElementById('velocite')
+
 const map = L.map('map').setView([0, 0], 3);
 
 L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}', {
@@ -9,8 +10,7 @@ L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/
 
 const satelliteIcon = L.icon({
     iconUrl: './Ressources/iss.png',
-    iconSize: [100, 100],
-    iconAnchor: [50, 50]
+    iconSize: [100, 100]
 });
 async function findPosition() {
     try {
@@ -22,7 +22,7 @@ async function findPosition() {
 
         latitudeContainer.innerText = latitude;
         longitudeContainer.innerText = longitude;
-        velociteContainer.innerText = Math.round(velocity, 0)+' km/h'
+        velociteContainer.innerText = Math.round(velocity)+' km/h'
 
         return { latitude, longitude };
     } catch (error) {
@@ -44,7 +44,7 @@ setInterval(async () => {
             marker.setLatLng([latitude, longitude]);
         }
 
-        map.setView([latitude, longitude]);
+        map.flyTo([latitude, longitude]);
     }
 }, 1000);
 
